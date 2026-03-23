@@ -1,2 +1,2 @@
-# Typeless-AI-
+# Typeless-AI
 Reinventing Typeless 
