@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typeless-AI 项目思维导图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .priority-filter {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .epic-section {
+            margin-bottom: 30px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .epic-header {
+            background: #f7fafc;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .epic-header:hover {
+            background: #edf2f7;
+        }
+
+        .epic-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .epic-meta {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .epic-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .epic-content.active {
+            display: block;
+        }
+
+        .issue-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .issue-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+
+        .issue-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        }
+
+        .priority-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-p0 {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .priority-p1 {
+            background: #feebc8;
+            color: #c05621;
+        }
+
+        .priority-p2 {
+            background: #fefcbf;
+            color: #975a16;
+        }
+
+        .issue-number {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .issue-title {
+            flex: 1;
+            color: #2d3748;
+        }
+
+        .issue-points {
+            font-size: 12px;
+            color: #718096;
+            background: #f7fafc;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .roadmap {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .roadmap h2 {
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .roadmap-week {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .roadmap-week h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .roadmap-week p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .expand-all {
+            margin-bottom: 20px;
+        }
+
+        .expand-all button {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .expand-all button:hover {
+            background: #5a67d8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .issue-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Typeless-AI 1.0 Release</h1>
+        <p class="subtitle">项目思维导图 · 40 个 Issues · ~177 小时</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>40</h3>
+                <p>总 Issues</p>
+            </div>
+            <div class="stat-card">
+                <h3>~177h</h3>
+                <p>总工时</p>
+            </div>
+            <div class="stat-card">
+                <h3>17</h3>
+                <p>P0 核心任务</p>
+            </div>
+            <div class="stat-card">
+                <h3>8</h3>
+                <p>Epic 模块</p>
+            </div>
+        </div>
+
+        <div class="priority-filter">
+            <button class="filter-btn active" data-priority="all">全部</button>
+            <button class="filter-btn" data-priority="p0">🔴 P0 核心</button>
+            <button class="filter-btn" data-priority="p1">🟡 P1 重要</button>
+            <button class="filter-btn" data-priority="p2">🟢 P2 增强</button>
+        </div>
+
+        <div class="expand-all">
+            <button onclick="toggleAll()">📂 展开/折叠全部</button>
+        </div>
+
+        <div id="epics-container"></div>
+
+        <div class="roadmap">
+            <h2>📅 开发路线图</h2>
+            <div class="roadmap-week">
+                <h3>Week 1-2: 核心功能 (P0)</h3>
+                <p>项目初始化 → 全局热键与录音 → ASR 集成 → 文本注入 → API Key 配置</p>
+            </div>
+            <div class="roadmap-week">
+                <h3>Week 3: 工程化 (P1)</h3>
+                <p>代码规范 + 构建流程 + 单元测试 + 错误处理 + 集成测试</p>
+            </div>
+            <div class="roadmap-week">
+                <h3>Week 4: UI 与体验 (P1)</h3>
+                <p>系统托盘 + 录音悬浮窗 + 文本后处理 + 注入队列</p>
+            </div>
+            <div class="roadmap-week">
+                <h3>Week 5+: 增强功能 (P2)</h3>
+                <p>文件转写 + 完整设置界面 + 偏好设置</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const epics = [
+            {
+                id: 41,
+                title: "📦 Epic #41: 项目初始化与工程脚手架",
+                description: "搭建 Electron + React + TypeScript 基础架构",
+                hours: 24,
+                issues: 6,
+                tasks: [
+                    { number: 1, priority: "p0", title: "初始化 Electron + React + TypeScript 项目结构", points: 3 },
+                    { number: 2, priority: "p1", title: "配置开发环境（ESLint, Prettier, Git hooks）", points: 2 },
+                    { number: 3, priority: "p1", title: "搭建构建与打包流程（Vite + electron-builder）", points: 3 },
+                    { number: 4, priority: "p1", title: "配置 SQLite 本地存储（历史记录）", points: 3 },
+                    { number: 5, priority: "p1", title: "配置 electron-store 加密存储（API Key 等）", points: 3 },
+                    { number: 6, priority: "p2", title: "编写项目 README 和开发文档", points: 2 }
+                ]
+            },
+            {
+                id: 42,
+                title: "🎤 Epic #42: 全局热键与录音捕获",
+                description: "实现全局热键监听和麦克风音频流捕获",
+                hours: 27,
+                issues: 6,
+                tasks: [
+                    { number: 7, priority: "p0", title: "研究并选型全局热键库", points: 2 },
+                    { number: 8, priority: "p0", title: "实现全局热键监听模块", points: 5 },
+                    { number: 9, priority: "p0", title: "实现麦克风权限检测与请求", points: 3 },
+                    { number: 10, priority: "p0", title: "实现音频流捕获（麦克风录音）", points: 5 },
+                    { number: 11, priority: "p1", title: "实现音频流分片与缓冲管理", points: 3 },
+                    { number: 12, priority: "p1", title: "编写热键与录音单元测试", points: 3 }
+                ]
+            },
+            {
+                id: 43,
+                title: "🤖 Epic #43: 讯飞实时 ASR WebSocket 集成",
+                description: "集成讯飞语音识别 API，实现实时转写",
+                hours: 26,
+                issues: 6,
+                tasks: [
+                    { number: 13, priority: "p0", title: "研究讯飞 WebSocket 实时语音转写 API", points: 2 },
+                    { number: 14, priority: "p0", title: "实现讯飞 WebSocket 客户端封装", points: 5 },
+                    { number: 15, priority: "p0", title: "实现音频流分片发送逻辑", points: 3 },
+                    { number: 16, priority: "p0", title: "实现实时识别结果解析与处理", points: 3 },
+                    { number: 17, priority: "p1", title: "实现错误处理与降级方案", points: 3 },
+                    { number: 18, priority: "p1", title: "编写讯飞 ASR 集成测试", points: 3 }
+                ]
+            },
+            {
+                id: 44,
+                title: "⌨️ Epic #44: 文本注入到任意窗口",
+                description: "实现将识别结果注入到任意活动窗口",
+                hours: 13,
+                issues: 3,
+                tasks: [
+                    { number: 19, priority: "p0", title: "研究 Windows 文本注入方案", points: 2 },
+                    { number: 20, priority: "p0", title: "实现文本注入模块", points: 5 },
+                    { number: 21, priority: "p1", title: "实现注入队列与去重逻辑", points: 3 }
+                ]
+            },
+            {
+                id: 45,
+                title: "🎨 Epic #45: 系统托盘与录音状态 UI",
+                description: "实现系统托盘图标和录音状态悬浮窗",
+                hours: 16,
+                issues: 3,
+                tasks: [
+                    { number: 22, priority: "p1", title: "设计系统托盘图标与菜单", points: 3 },
+                    { number: 23, priority: "p1", title: "实现录音状态悬浮窗", points: 5 },
+                    { number: 24, priority: "p2", title: "实现主窗口设置界面", points: 5 }
+                ]
+            },
+            {
+                id: 46,
+                title: "✨ Epic #46: 文本后处理",
+                description: "去除语气词和智能标点补全",
+                hours: 14,
+                issues: 3,
+                tasks: [
+                    { number: 25, priority: "p1", title: "实现去语气词功能", points: 3 },
+                    { number: 26, priority: "p1", title: "实现智能标点补全", points: 5 },
+                    { number: 27, priority: "p1", title: "实现文本后处理管道", points: 3 }
+                ]
+            },
+            {
+                id: 47,
+                title: "📁 Epic #47: 音频文件转写",
+                description: "实现音频文件上传和转写功能",
+                hours: 15,
+                issues: 3,
+                tasks: [
+                    { number: 28, priority: "p2", title: "研究讯飞长音频转写 API", points: 2 },
+                    { number: 29, priority: "p2", title: "实现文件上传与转写功能", points: 5 },
+                    { number: 30, priority: "p2", title: "实现文件转写 UI", points: 5 }
+                ]
+            },
+            {
+                id: 48,
+                title: "⚙️ Epic #48: 设置页面与 API Key 管理",
+                description: "实现 API Key 配置和偏好设置",
+                hours: 11,
+                issues: 3,
+                tasks: [
+                    { number: 31, priority: "p0", title: "实现 API Key 配置与验证", points: 3 },
+                    { number: 32, priority: "p1", title: "实现热键配置功能", points: 3 },
+                    { number: 33, priority: "p2", title: "实现偏好设置（语言、后处理）", points: 2 }
+                ]
+            }
+        ];
+
+        function renderEpics(filter = 'all') {
+            const container = document.getElementById('epics-container');
+            container.innerHTML = '';
+
+            epics.forEach(epic => {
+                const filteredTasks = filter === 'all'
+                    ? epic.tasks
+                    : epic.tasks.filter(task => task.priority === filter);
+
+                if (filteredTasks.length === 0) return;
+
+                const epicSection = document.createElement('div');
+                epicSection.className = 'epic-section';
+                epicSection.innerHTML = `
+                    <div class="epic-header" onclick="toggleEpic(${epic.id})">
+                        <div>
+                            <div class="epic-title">${epic.title}</div>
+                            <div class="epic-meta">${epic.description} · ${epic.hours}小时 · ${epic.issues}个任务</div>
+                        </div>
+                        <span id="arrow-${epic.id}">▼</span>
+                    </div>
+                    <div class="epic-content" id="content-${epic.id}">
+                        <div class="issue-list">
+                            ${filteredTasks.map(task => `
+                                <div class="issue-card" data-priority="${task.priority}">
+                                    <span class="priority-badge priority-${task.priority}">${task.priority.toUpperCase()}</span>
+                                    <span class="issue-number">#${task.number}</span>
+                                    <span class="issue-title">${task.title}</span>
+                                    <span class="issue-points">${task.points}pts</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(epicSection);
+            });
+        }
+
+        function toggleEpic(id) {
+            const content = document.getElementById(`content-${id}`);
+            const arrow = document.getElementById(`arrow-${id}`);
+            content.classList.toggle('active');
+            arrow.textContent = content.classList.contains('active') ? '▲' : '▼';
+        }
+
+        let allExpanded = false;
+        function toggleAll() {
+            allExpanded = !allExpanded;
+            document.querySelectorAll('.epic-content').forEach(content => {
+                if (allExpanded) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('[id^="arrow-"]').forEach(arrow => {
+                arrow.textContent = allExpanded ? '▲' : '▼';
+            });
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderEpics(btn.dataset.priority);
+            });
+        });
+
+        // Initial render
+        renderEpics();
+    </script>
+</body>
+</html>
