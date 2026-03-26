@@ -5,10 +5,7 @@
     "output": "release",
     "buildResources": "build"
   },
-  "files": [
-    "dist/**/*",
-    "package.json"
-  ],
+  "files": ["dist/**/*", "package.json"],
   "win": {
     "target": ["nsis"],
     "icon": "build/icon.ico"

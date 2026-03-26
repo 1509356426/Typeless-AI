@@ -72,7 +72,7 @@
 }
 
 .feature-list li:before {
-  content: "✓ ";
+  content: '✓ ';
   color: #4ade80;
   font-weight: bold;
   margin-right: 0.5rem;

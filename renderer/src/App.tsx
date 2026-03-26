@@ -1,27 +1,27 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
 
 function App() {
-  const [version, setVersion] = useState<string>('Loading...')
-  const [error, setError] = useState<string | null>(null)
+  const [version, setVersion] = useState<string>('Loading...');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadVersion = async () => {
       try {
         if (window.electronAPI) {
-          const appVersion = await window.electronAPI.getVersion()
-          setVersion(appVersion)
+          const appVersion = await window.electronAPI.getVersion();
+          setVersion(appVersion);
         } else {
-          setVersion('Web Mode (development)')
+          setVersion('Web Mode (development)');
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error')
-        setVersion('Error loading version')
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        setVersion('Error loading version');
       }
-    }
+    };
 
-    loadVersion()
-  }, [])
+    loadVersion();
+  }, []);
 
   return (
     <div className="App">
@@ -43,7 +43,7 @@ function App() {
         </div>
       </header>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -41,6 +41,7 @@ npm run electron:dev
 ```
 
 This will:
+
 1. Start Vite dev server on http://localhost:5173
 2. Launch Electron window
 3. Enable hot module replacement
