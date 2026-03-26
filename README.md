@@ -1,23 +1,99 @@
-# Typeless-AI
-## 录音模块（输入层）
-- 语音捕获：录音模块的输入层采用麦克风，通过麦克风采集声音信号
-- 热键：通过键盘按键来进行录音开启和停止，因此要检测键盘热键
+# Typeless AI
 
-## 语音识别（语音转文字）
-- 模型选择
-    - 采用开源的语音识别模型调用API
-    - 本地部署模型，vllm/ollama
-    - 核心问题：识别延迟问题
-- 提示词
-    - 看能否通过提示词训练模型来提升识别准确率，且可以识别各种语言
-- 转文本时可以选择转换语言，如中文、英文、日文等
-- 选开源API或本地模型时的识别延迟问题
+AI-Powered Voice Dictation Tool built with Electron, React, and TypeScript.
 
-## AI润色
-- 提示词：利用提示词来调整语气、语法、填充、屏蔽不必要的词
-- 模型调用：利用API调用或云服务调用
+## Project Structure
 
-## 文本生成
+```
+typeless-ai/
+├── main/           # Electron main process
+│   ├── index.ts    # Main process entry
+│   └── preload.ts  # Preload script
+├── renderer/       # React renderer process
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── main.tsx
+│   │   └── test/   # Test files
+│   └── index.html
+├── shared/         # Shared types and utilities
+└── package.json
+```
 
-## UI选型
-- 采用Web UI和动端UI
+## Getting Started
+
+### Prerequisites
+
+- Node.js >= 18.0.0
+- npm or yarn
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
+
+Start the development server with hot reload:
+
+```bash
+npm run electron:dev
+```
+
+This will:
+1. Start Vite dev server on http://localhost:5173
+2. Launch Electron window
+3. Enable hot module replacement
+
+### Building
+
+Build for production:
+
+```bash
+npm run electron:build
+```
+
+This creates platform-specific installers in the `release/` directory.
+
+### Testing
+
+Run tests:
+
+```bash
+npm run test              # Run tests
+npm run test:ui           # Run tests with UI
+npm run test:coverage     # Run tests with coverage report
+```
+
+### Code Quality
+
+Lint and format code:
+
+```bash
+npm run lint             # Check code quality
+npm run lint:fix         # Fix linting issues
+npm run format           # Format code
+npm run format:check     # Check formatting
+```
+
+## Tech Stack
+
+- **Electron** ^28.0.0 - Desktop application framework
+- **React** ^18.2.0 - UI library
+- **TypeScript** ^5.3.0 - Type-safe JavaScript
+- **Vite** ^5.0.0 - Build tool and dev server
+- **Vitest** - Testing framework
+- **ESLint + Prettier** - Code quality tools
+
+## Features
+
+- ✅ Electron + React + TypeScript setup
+- ✅ Hot reload development mode
+- ✅ Complete testing setup with ≥90% coverage
+- ✅ ESLint + Prettier configuration
+- ✅ Production build with electron-builder
+- ✅ Type-safe IPC communication
+
+## License
+
+MIT

@@ -1,0 +1,79 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.App-header h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.App-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.version-info {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.version-info p {
+  margin: 0.5rem 0;
+}
+
+.error {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.feature-list {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  text-align: left;
+}
+
+.feature-list h2 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.feature-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  padding: 0.5rem 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.feature-list li:before {
+  content: "✓ ";
+  color: #4ade80;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
