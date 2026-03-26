@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { IPCChannel } from '@shared/types';
+import { IPCChannel, type ElectronAPI } from '@shared/types';
 
 // 定义暴露给渲染进程的 API
 const electronAPI = {
@@ -34,18 +34,8 @@ const electronAPI = {
 // 使用 contextBridge 安全地暴露 API
 contextBridge.exposeInMainWorld('electronAPI', electronAPI);
 
-// TypeScript 类型定义
-export interface ElectronAPI {
-  getVersion: () => Promise<string>;
-  ping: () => Promise<string>;
-  getAppInfo: () => Promise<{ name: string; version: string }>;
-  sendMessage: (message: string) => Promise<string>;
-  on: (channel: string, callback: (...args: unknown[]) => void) => void;
-  removeListener: (channel: string, callback: (...args: unknown[]) => void) => void;
-}
-
 declare global {
   interface Window {
-    electronAPI: ElectronAPI;
+    electronAPI?: ElectronAPI;
   }
 }

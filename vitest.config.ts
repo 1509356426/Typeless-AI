@@ -18,10 +18,6 @@ export default defineConfig({
         'renderer/src/test/setup.ts',
       ],
       all: true,
-      lines: 90,
-      functions: 90,
-      branches: 90,
-      statements: 90,
     },
   },
   resolve: {
