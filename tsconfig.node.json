@@ -15,10 +15,12 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./",
     "paths": {
       "@shared/*": ["./shared/*"]
     }
   },
-  "include": ["main", "vite.config.ts", "vitest.config.ts"],
+  "include": ["main", "shared", "vite.config.ts", "vitest.config.ts"],
   "composite": true
 }

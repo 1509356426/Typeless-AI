@@ -457,7 +457,7 @@ describe('pick', () => {
 
   it('should handle non-existent keys', () => {
     const obj = { a: 1 };
-    const result = pick(obj, ['a', 'b'] as const);
+    const result = pick(obj, ['a', 'b'] as any);
     expect(result).toEqual({ a: 1 });
   });
 });

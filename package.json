@@ -7,10 +7,10 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:renderer\" \"npm run dev:main\"",
     "dev:renderer": "cross-env VITE_RENDERER=1 vite",
-    "dev:main": "cross-env NODE_ENV=development tsc -p tsconfig.node.json && electron .",
+    "dev:main": "cross-env NODE_ENV=development tsc -p tsconfig.node.json && tsc-alias -p tsconfig.node.json && electron .",
     "build": "npm run build:renderer && npm run build:main",
     "build:renderer": "cross-env VITE_RENDERER=1 vite build",
-    "build:main": "tsc -p tsconfig.node.json",
+    "build:main": "tsc -p tsconfig.node.json && tsc-alias -p tsconfig.node.json",
     "electron:dev": "concurrently \"npm run dev:renderer\" \"npm run dev:main\"",
     "electron:build": "npm run build && electron-builder",
     "electron:build:win": "npm run build && electron-builder --win",
@@ -50,6 +50,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "^23.0.1",
     "prettier": "^3.1.1",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
     "vitest": "^1.1.0"
