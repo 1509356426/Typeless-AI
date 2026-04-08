@@ -4,6 +4,7 @@
  */
 
 import { Recorder, RecorderEventType, RecordingStatus } from '../core/recorder';
+import { transcribeFile } from '../core/transcriber';
 import { getLogger, LogLevel } from '../utils/logger';
 import readline from 'readline';
 
@@ -70,6 +71,31 @@ class CLI {
   }
 
   /**
+   * 处理转写命令
+   */
+  private async handleTranscribe(filePath: string): Promise<void> {
+    if (!filePath) {
+      console.log('\n用法: transcribe <WAV文件路径>\n');
+      return;
+    }
+
+    console.log(`\n🔄 开始转写: ${filePath}`);
+    console.log('识别中...');
+
+    try {
+      const result = await transcribeFile(filePath, (partial) => {
+        process.stdout.write(`\r📝 ${partial}`);
+      });
+
+      console.log(`\n\n✅ 转写完成！`);
+      console.log(`📝 识别结果: ${result.text || '（未识别到内容）'}`);
+      console.log(`⏱️  耗时: ${Math.round(result.duration / 1000)}秒\n`);
+    } catch (err) {
+      console.error(`\n❌ 转写失败: ${(err as Error).message}\n`);
+    }
+  }
+
+  /**
    * 显示帮助信息
    */
   private displayHelp(): void {
@@ -78,16 +104,17 @@ class CLI {
 ║           Typeless-AI 录音测试工具 v0.1.0                    ║
 ╠═══════════════════════════════════════════════════════════════╣
 ║  命令:                                                       ║
-║    start     - 开始录音                                       ║
-║    stop      - 停止录音                                       ║
-║    status    - 查看状态                                       ║
-║    help      - 显示帮助                                       ║
-║    quit      - 退出程序                                       ║
+║    start               - 开始录音                             ║
+║    stop                - 停止录音                             ║
+║    transcribe <file>   - 转写音频文件为文字                   ║
+║    status              - 查看状态                             ║
+║    help                - 显示帮助                             ║
+║    quit                - 退出程序                             ║
 ║                                                               ║
 ║  快捷键:                                                      ║
 ║    Ctrl+Space - 开始/停止录音                                ║
 ║                                                               ║
-║  提示: 首次运行可能需要授权麦克风权限                         ║
+║  转写需设置: XIFEI_APP_ID / XIFEI_API_KEY / XIFEI_API_SECRET ║
 ╚═══════════════════════════════════════════════════════════════╝
     `);
   }
@@ -152,8 +179,13 @@ class CLI {
                 break;
 
               default:
-                console.log(`\n未知命令: ${command}`);
-                console.log('输入 "help" 查看可用命令\n');
+                if (input.trim().toLowerCase().startsWith('transcribe ')) {
+                  const filePath = input.trim().slice('transcribe '.length).trim();
+                  await this.handleTranscribe(filePath);
+                } else {
+                  console.log(`\n未知命令: ${command}`);
+                  console.log('输入 "help" 查看可用命令\n');
+                }
             }
           } catch (error) {
             console.error(`\n❌ 执行命令失败: ${(error as Error).message}\n`);
