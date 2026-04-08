@@ -5,13 +5,14 @@
 
 import { EventEmitter } from 'eventemitter3';
 import * as path from 'path';
+import * as fs from 'fs';
 import * as childProcess from 'child_process';
 import { AudioConfig, RecordingStatus, AudioChunk, DEFAULT_AUDIO_CONFIG } from '../../types';
 import { getLogger, Logger } from '../../utils/logger';
 
-// 将项目内置的 sox 添加到 PATH，确保能找到它
-const soxDir = path.resolve(__dirname, '../../../sox-14.4.2');
-if (!process.env.PATH?.includes(soxDir)) {
+// 尝试将项目内置的 sox 添加到 PATH（如果存在）
+const soxDir = path.resolve(__dirname, '../../../sox-14.4.2/sox-14.4.2');
+if (fs.existsSync(soxDir) && !process.env.PATH?.includes(soxDir)) {
   process.env.PATH = soxDir + path.delimiter + (process.env.PATH || '');
 }
 
