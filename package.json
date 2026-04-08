@@ -7,7 +7,8 @@
     "dev": "ts-node src/cli/index.ts",
     "build": "tsc",
     "watch": "tsc --watch",
-    "start": "node dist/cli/index.js"
+    "start": "node dist/cli/index.js",
+    "setup:sox": "node scripts/download-sox.js"
   },
   "keywords": [
     "voice",
@@ -19,17 +20,22 @@
   "author": "Typeless-AI Team",
   "license": "MIT",
   "dependencies": {
+    "adm-zip": "^0.5.16",
+    "dotenv": "^17.3.1",
     "eventemitter3": "^5.0.1",
     "fs-extra": "^11.2.0",
     "node-microphone": "^0.1.6",
     "uiohook-napi": "^1.5.0",
     "wav": "^1.0.2",
-    "winston": "^3.11.0"
+    "winston": "^3.11.0",
+    "ws": "^8.20.0"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.5",
     "@types/wav": "^1.0.2",
+    "@types/ws": "^8.18.1",
     "nodemon": "^3.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"

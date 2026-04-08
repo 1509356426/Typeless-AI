@@ -3,3 +3,4 @@
  */
 
 export * from './recorder.types';
+export * from './transcription.types';
