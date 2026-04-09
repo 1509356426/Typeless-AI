@@ -49,7 +49,12 @@ class CLI {
     this.recorder.on(RecorderEventType.STOP, (event) => {
       console.log('\n✅ 录音已停止！');
       console.log(`📁 文件路径: ${event.filePath}`);
-      console.log(`⏱️  录音时长: ${Math.round(event.duration! / 1000)}秒\n`);
+      console.log(`⏱️  录音时长: ${Math.round(event.duration! / 1000)}秒`);
+
+      // 自动触发转写
+      if (event.filePath) {
+        this.handleTranscribe(event.filePath);
+      }
     });
 
     this.recorder.on(RecorderEventType.ERROR, (event) => {
