@@ -4,3 +4,4 @@
 
 export * from './recorder.types';
 export * from './transcription.types';
+export * from './text-processor.types';

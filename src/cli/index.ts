@@ -5,6 +5,7 @@
 
 import { Recorder, RecorderEventType, RecordingStatus } from '../core/recorder';
 import { transcribeFile } from '../core/transcriber';
+import { TextProcessor } from '../core/text-processor';
 import { getLogger, LogLevel } from '../utils/logger';
 import readline from 'readline';
 
@@ -13,6 +14,7 @@ import readline from 'readline';
  */
 class CLI {
   private recorder: Recorder;
+  private textProcessor: TextProcessor;
   private logger = getLogger();
 
   constructor() {
@@ -20,6 +22,7 @@ class CLI {
       hotkey: 'Ctrl+Space',
       enableHotkey: true,
     });
+    this.textProcessor = new TextProcessor();
 
     this.setupEventHandlers();
   }
@@ -92,8 +95,19 @@ class CLI {
         process.stdout.write(`\r📝 ${partial}`);
       });
 
+      // 文本后处理
+      const processed = this.textProcessor.process(result.text);
+
       console.log(`\n\n✅ 转写完成！`);
-      console.log(`📝 识别结果: ${result.text || '（未识别到内容）'}`);
+      if (processed.text !== result.text) {
+        console.log(`📝 原始结果: ${result.text || '（未识别到内容）'}`);
+        console.log(`📝 处理结果: ${processed.text}`);
+        if (processed.removedFillers.length > 0) {
+          console.log(`🧹 已去除语气词: ${processed.removedFillers.join('、')}`);
+        }
+      } else {
+        console.log(`📝 识别结果: ${result.text || '（未识别到内容）'}`);
+      }
       console.log(`⏱️  耗时: ${Math.round(result.duration / 1000)}秒\n`);
     } catch (err) {
       console.error(`\n❌ 转写失败: ${(err as Error).message}\n`);
